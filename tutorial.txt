@@ -1,0 +1,28 @@
+Hello everyone today i am 
+going to show you how to upload skin art to namemc automatically
+
+Step 1 download Python and install it i wont show you how to do that
+but i will leave a link in the description for how to do that
+
+Step 2 download this github repository 
+https://github.com/Garganacl/namemc-skinart-loader
+
+then unzip it 
+
+
+Step 3 open it in a command prompt when you are in the command prompt
+cd into the folder 
+
+Step 4 install the required modules
+
+
+Step 5 run the program with python main.py 
+
+once you have it running there are some stuff you need to Set 
+
+first set the bearer token if you dont know how to do that press 4
+
+when you are in your minecraft settings press ctrl shift i
+and paste this into the console at the bottom and hit enter
+
+copy the long string of text and paste it in number 2
