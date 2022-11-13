@@ -36,13 +36,13 @@ while True:
         variant = str(input("Please input the type of skin you want 'classic' or 'slim': "))
 
         if 'classic' in variant:
-             with open('../namemc-skinart-loader/assets/variant.txt','w') as v:
+             with open('../namemc-skinart-loader-main/assets/variant.txt','w') as v:
                 v.write(f"{variant}")
                 os.system('cls')
                 print('Variant has been set.') 
                 time.sleep(1) 
         if 'slim' in variant:
-             with open('../namemc-skinart-loader/assets/variant.txt','w') as v:
+             with open('../namemc-skinart-loader-main/assets/variant.txt','w') as v:
                 v.write(f"{variant}")
                 os.system('cls')
                 print('Variant has been set.') 
@@ -55,7 +55,7 @@ while True:
 
         token = input("Please input your bearer token: ")
         
-        with open('../namemc-skinart-loader/assets/token.txt','w') as t:
+        with open('../namemc-skinart-loader-main/assets/token.txt','w') as t:
             t.write(f"{token}")  
 
         os.system('cls')
@@ -66,7 +66,7 @@ while True:
 
         mcname = input("Please input your minecraft name: ")
 
-        with open('../namemc-skinart-loader/assets/mcname.txt','w') as m:
+        with open('../namemc-skinart-loader-main/assets/mcname.txt','w') as m:
             m.write(f"{mcname}")  
 
         os.system('cls')
@@ -92,24 +92,24 @@ while True:
         ''')
 
     if number == 7:
-        abspath = os.path.abspath("../namemc-skinart-loader/assets/skins")
+        abspath = os.path.abspath("../namemc-skinart-loader-main/assets/skins")
         
         substr = "\\"
         inserttxt = "\\"    
         abspath = abspath.replace(substr, substr + inserttxt)
-        with open('../namemc-skinart-loader/assets/number.txt') as numba:
+        with open('../namemc-skinart-loader-main/assets/number.txt') as numba:
                 numba = numba.readline()
                 numba = int(numba)
         num = numba
         while num > 0:
-            with open('../namemc-skinart-loader/assets/mcname.txt') as minecraftname:
+            with open('../namemc-skinart-loader-main/assets/mcname.txt') as minecraftname:
                 minecraftname = minecraftname.readline()
                 minecraftname = str(minecraftname)
-            with open('../namemc-skinart-loader/assets/token.txt') as ttoken:
+            with open('../namemc-skinart-loader-main/assets/token.txt') as ttoken:
                 ttoken = ttoken.readline()
-            with open('../namemc-skinart-loader/assets/variant.txt') as vvariant:
+            with open('../namemc-skinart-loader-main/assets/variant.txt') as vvariant:
                 vvariant = vvariant.readline()
-            with open('../namemc-skinart-loader/assets/time.txt') as time_check:
+            with open('../namemc-skinart-loader-main/assets/time.txt') as time_check:
                 time_check = time_check.readline()
                 time_check = int(time_check)
             if minecraftname == '':
@@ -130,7 +130,7 @@ while True:
 
     if number == 8:
         timee = input("Please enter a time (in seconds): ")
-        with open('../namemc-skinart-loader/assets/time.txt','w') as t:
+        with open('../namemc-skinart-loader-main/assets/time.txt','w') as t:
                 t.write(f"{timee}")
                 os.system('cls')
                 print('Time has been set.') 
