@@ -2,11 +2,10 @@ import time
 import webbrowser
 import os
 import keyboard
-
-
-
+import requests
 
 while True:
+
     abspath = os.path.abspath("../namemc-skinart-loader-main/assets/skins")
     absp_number = os.path.abspath('../namemc-skinart-loader-main/assets/number.txt')
     absp_mcname = os.path.abspath('../namemc-skinart-loader-main/assets/mcname.txt')
@@ -41,6 +40,7 @@ while True:
     | MAKE SURE TO RUN pip install -r requirements.txt TO RUN ALL THE NEEDED MODULES
 
     ''')
+
     try:
         number = int(input('Enter your number: '))
     except:
@@ -80,14 +80,21 @@ while True:
 
     if number == 3:
 
-        mcname = input("Please input your minecraft name: ")
+        mcname = str(input("Please input your minecraft name: "))
+        response = requests.get(f'https://api.mojang.com/users/profiles/minecraft/{mcname}')
+        if response.status_code == 200:
+            with open(f'{absp_mcname}','w') as m:
+                m.write(f"{mcname}")  
 
-        with open(f'{absp_mcname}','w') as m:
-            m.write(f"{mcname}")  
+                os.system('cls')
 
-        os.system('cls')
-
-        print('Minecraft name has been set.')    
+                print('Minecraft name has been set.') 
+        elif response.status_code == 204:
+            os.system('cls')
+            print('Please enter a valid minecraft name.') 
+        else:
+            os.system('cls')
+            print('Something is wrong with the Mojang api please try again later.')  
 
     if number == 4:
             os.system('cls')
@@ -97,10 +104,11 @@ while True:
             ''')
             time.sleep(1)
     if number == 5:
+        webbrowser.open('https://thomas.gg')
         print('''
         
         Step (1) PUT YOUR IMAGE INTO https://Thomas.gg/
-        Step (2) TAKE THE Skinart.zip AND EXCTRACK IT 
+        Step (2) TAKE THE Skinart.zip AND EXCTRACT IT 
         Step (3) PUT ALL THE NUMBERED SKIN FILES IN THE namemc-skinart-loader\assets\skins FOLDER
         Step (6) AFTER YOU DO ALL THAT MAKE SURE U SET UP ALL THE REQUIRED STUFF THEN RUN NUMBER 6 TO START THE LOADING PROCESS 
 
@@ -136,17 +144,23 @@ while True:
                 time.sleep(2)
                 os.system('cls')
                 break
-            os.system(f'curl --silent --output /dev/null -X POST -H "Authorization: Bearer {ttoken}" -F variant={vvariant} -F file="@{abspath}\Skin-{num}.png;type=image/png" https://api.minecraftservices.com/minecraft/profile/skins')
-            webbrowser.open(f'https://namemc.com/{minecraftname}')
-            time.sleep(time_check)
-            keyboard.press_and_release('ctrl+w')
-            os.system('cls')
-            if num - 1 == 0:
-                print("All done!")
+            result = os.system(f'curl --silent --output /dev/null -X POST -H "Authorization: Bearer {ttoken}" -F variant={vvariant} -F file="@{abspath}\Skin-{num}.png;type=image/png" https://api.minecraftservices.com/minecraft/profile/skins')
+            result = int(result)
+            if result != 23:
                 webbrowser.open(f'https://namemc.com/{minecraftname}')
-            else:
-                print(f'Done with skin {num} onto skin number {num - 1}.')
-            num -= 1
+                time.sleep(time_check)
+                keyboard.press_and_release('ctrl+w')
+                os.system('cls')
+                if num - 1 == 0:
+                    print("All done!")
+                    webbrowser.open(f'https://namemc.com/{minecraftname}')
+                else:
+                    print(f'Done with skin {num} onto skin number {num - 1}.')
+                num -= 1
+            elif result == 23:
+                os.system('cls')
+                print('Please enter a valid Bearer token.')
+                break
             
     if number == 8:
         timee = input("Please enter a time (in seconds): ")
