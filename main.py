@@ -7,6 +7,23 @@ import keyboard
 
 
 while True:
+    abspath = os.path.abspath("../namemc-skinart-loader-main/assets/skins")
+    absp_number = os.path.abspath('../namemc-skinart-loader-main/assets/number.txt')
+    absp_mcname = os.path.abspath('../namemc-skinart-loader-main/assets/mcname.txt')
+    absp_token = os.path.abspath('../namemc-skinart-loader-main/assets/token.txt')
+    absp_variant = os.path.abspath('../namemc-skinart-loader-main/assets/variant.txt')
+    absp_time = os.path.abspath('../namemc-skinart-loader-main/assets/time.txt')
+    
+    substr = "\\"
+    inserttxt = "\\"    
+    abspath = abspath.replace(substr, substr + inserttxt)
+    absp_number = absp_number.replace(substr, substr + inserttxt)
+    absp_mcname = absp_mcname.replace(substr, substr + inserttxt)
+    absp_token = absp_token.replace(substr, substr + inserttxt)
+    absp_variant = absp_variant.replace(substr, substr + inserttxt)
+    absp_time = absp_time.replace(substr, substr + inserttxt)
+
+
     print(f'''
     PLEASE ENTER THE NUMBER OF THE OPTION YOU WOULD LIKE TO SELECT
 
@@ -16,11 +33,10 @@ while True:
     (4) LINK FOR HOW TO GET YOUR BEARER TOKEN (ONLY LAST FOR 24 HOURS) (NOT REQUIRED)
     (5) HOW TO SET UP SKINS (NOT REQUIRED)
     (7) START THE LOADING PROCESS 
-    (8) SET THE DEFAULT LOADING WEBPAGE (VARYS ON WIFI) (IN SECONDS) (DEFAULTS TO 5)
+    (8) SET THE DEFAULT LOADING WEBPAGE (VARIES ON WIFI) (IN SECONDS) (DEFAULTS TO 5)
 
 
     | IF THE SCRIPT ISNT WORKING TRY SETTING A NEW BEAERER TOKEN
-    | THIS SCRIPT LOADS 26 SKINS SO YOU CAN MANUALLY IMPORT THE LAST SKIN AS YOUR OWN IF YOU WOULD LIKE TO CHANGE THIS PRESS NUMBER 6
     | SCRIPT ONLY WORKS WITH Https://thomas.gg/ GENERATED SKINART FILE
     | MAKE SURE TO RUN pip install -r requirements.txt TO RUN ALL THE NEEDED MODULES
 
@@ -36,13 +52,13 @@ while True:
         variant = str(input("Please input the type of skin you want 'classic' or 'slim': "))
 
         if 'classic' in variant:
-             with open('../namemc-skinart-loader-main/assets/variant.txt','w') as v:
+             with open(f'{absp_variant}','w') as v:
                 v.write(f"{variant}")
                 os.system('cls')
                 print('Variant has been set.') 
                 time.sleep(1) 
         if 'slim' in variant:
-             with open('../namemc-skinart-loader-main/assets/variant.txt','w') as v:
+             with open(f'{absp_variant}','w') as v:
                 v.write(f"{variant}")
                 os.system('cls')
                 print('Variant has been set.') 
@@ -55,7 +71,7 @@ while True:
 
         token = input("Please input your bearer token: ")
         
-        with open('../namemc-skinart-loader-main/assets/token.txt','w') as t:
+        with open(f'{absp_token}','w') as t:
             t.write(f"{token}")  
 
         os.system('cls')
@@ -66,7 +82,7 @@ while True:
 
         mcname = input("Please input your minecraft name: ")
 
-        with open('../namemc-skinart-loader-main/assets/mcname.txt','w') as m:
+        with open(f'{absp_mcname}','w') as m:
             m.write(f"{mcname}")  
 
         os.system('cls')
@@ -92,45 +108,49 @@ while True:
         ''')
 
     if number == 7:
-        abspath = os.path.abspath("../namemc-skinart-loader-main/assets/skins")
-        
-        substr = "\\"
-        inserttxt = "\\"    
-        abspath = abspath.replace(substr, substr + inserttxt)
-        with open('../namemc-skinart-loader-main/assets/number.txt') as numba:
-                numba = numba.readline()
-                numba = int(numba)
-        num = numba
+
+        num = 27
+
         while num > 0:
-            with open('../namemc-skinart-loader-main/assets/mcname.txt') as minecraftname:
+            with open(f'{absp_mcname}') as minecraftname:
                 minecraftname = minecraftname.readline()
                 minecraftname = str(minecraftname)
-            with open('../namemc-skinart-loader-main/assets/token.txt') as ttoken:
+                
+            with open(f'{absp_token}') as ttoken:
                 ttoken = ttoken.readline()
-            with open('../namemc-skinart-loader-main/assets/variant.txt') as vvariant:
+
+            with open(f'{absp_variant}') as vvariant:
                 vvariant = vvariant.readline()
-            with open('../namemc-skinart-loader-main/assets/time.txt') as time_check:
+
+            with open(f'{absp_time}') as time_check:
                 time_check = time_check.readline()
                 time_check = int(time_check)
+
             if minecraftname == '':
                 print("Please enter a minecraft name.")
                 time.sleep(2)
+                os.system('cls')
                 break
             if ttoken == '':
                 print("Please enter a bearer token.")
                 time.sleep(2)
+                os.system('cls')
                 break
-            os.system(f'curl -X POST -H "Authorization: Bearer {ttoken}" -F variant={vvariant} -F file="@{abspath}\Skin-{num}.png;type=image/png" https://api.minecraftservices.com/minecraft/profile/skins')
+            os.system(f'curl --silent --output /dev/null -X POST -H "Authorization: Bearer {ttoken}" -F variant={vvariant} -F file="@{abspath}\Skin-{num}.png;type=image/png" https://api.minecraftservices.com/minecraft/profile/skins')
             webbrowser.open(f'https://namemc.com/{minecraftname}')
             time.sleep(time_check)
             keyboard.press_and_release('ctrl+w')
             os.system('cls')
-            print(f'Done with skin {num} onto skin number {num - 1}.')
+            if num - 1 == 0:
+                print("All done!")
+                webbrowser.open(f'https://namemc.com/{minecraftname}')
+            else:
+                print(f'Done with skin {num} onto skin number {num - 1}.')
             num -= 1
-
+            
     if number == 8:
         timee = input("Please enter a time (in seconds): ")
-        with open('../namemc-skinart-loader-main/assets/time.txt','w') as t:
+        with open(f'{absp_time}','w') as t:
                 t.write(f"{timee}")
                 os.system('cls')
                 print('Time has been set.') 
