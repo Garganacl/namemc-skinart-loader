@@ -114,6 +114,7 @@ while True:
 
         
         ''')
+        time.sleep(15)
 
     if number == 7:
 
