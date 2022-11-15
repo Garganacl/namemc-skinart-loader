@@ -7,7 +7,7 @@ Have you Ever wanted to have a namemc skin art but didnt want to do the aweful t
 ## 1. Download and install python [here](https://www.python.org/)
 ## 2. Open a command prompt and [cd](https://anvilproject.org/guides/content/creating-links) into the folder of the script 
 ## 3. Run the command pip install -r requirements.txt in the terminal
-## 4. drag and drop your skins from [thomas.gg](https://thomas.gg) into the [skins folder](https://github.com/Garganacl/namemc-skinart-loader/tree/main/assets/skins)
+## 4. drag and drop your skins from [Thomas.gg](https://thomas.gg) into the [skins folder](https://github.com/Garganacl/namemc-skinart-loader/tree/main/assets/skins)
 ## 5. Run the script with python main.py or python3 main.py
 ## 6. Set press 2 to set your [bearer](https://kqzz.github.io/mc-bearer-token/) token & press 3 to set your minecraft name
 ## 7. Once you have set all the stuff up press 7 to start the script
